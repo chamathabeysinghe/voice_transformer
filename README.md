@@ -7,6 +7,25 @@
 Source is the file to be converted, and target is the sample target voice. 
 
 ## Custom training of the voice synthesize model 
-Please refer to this link about custom training of this model: https://github.com/CorentinJ/Real-Time-Voice-Cloning/issues/431#issuecomment-673555684
+Model is trained on LibriSpeech ASR corpus. Download the dataset from <a href="https://www.openslr.org/12/">here</a>
 
+1. Encoder training
 
+```
+python encoder_preprocess.py <datasets_root>
+python encoder_train.py my_run <datasets_root>/SV2TTS/encoder
+```
+
+2. Synthesizer training
+
+```
+python synthesizer_preprocess_audio.py <datasets_root>
+python synthesizer_preprocess_embeds.py <datasets_root>/SV2TTS/synthesizer
+python synthesizer_train.py my_run <datasets_root>/SV2TTS/synthesizer
+```
+
+3. Training the vocoder
+```
+python vocoder_preprocess.py <datasets_root>
+python vocoder_train.py my_run <datasets_root>
+```
